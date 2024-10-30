@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Diwali</title>
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Fireworks CSS for Background Animation -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fireworks-js/2.0.2/fireworks.min.css" rel="stylesheet">
+    <!-- Framer Motion CDN -->
+    <script src="https://unpkg.com/framer-motion/dist/framer-motion.umd.js"></script>
+    <style>
+        body {
+            background-color: #000000;
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        #fireworks {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        /* Background Video */
+        .background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+        }
+
+        .glow {
+            text-shadow: 0 0 10px #ff9f00, 0 0 20px #ff9f00, 0 0 30px #ff4500, 0 0 40px #ff9f00;
+            color: #ffd700;
+        }
+
+        .diwali-glow {
+            background-color: rgba(20, 20, 20, 0.8);
+            box-shadow: 0 0 10px #ffd700, 0 0 20px #ffa500;
+            border-radius: 20px;
+            animation: bounceMessage 2s infinite, fadeIn 1s forwards;
+            padding: 20px;
+            margin: 5% auto;
+            max-width: 90%;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Text Animation */
+        @keyframes bounceMessage {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        /* Diya Lamps at Bottom */
+        .diya {
+            position: absolute;
+            bottom: 10%;
+            width: 40px;
+            height: 40px;
+            background-size: contain;
+            animation: flickerLamp 1.5s infinite alternate, float 3s ease-in-out infinite;
+            opacity: 0.9;
+        }
+
+        .diya1 {
+            left: 25%;
+            background-image: url('./public/diya1.png');
+            animation-delay: 0s;
+        }
+
+        .diya2 {
+            left: 50%;
+            background-image: url('./public/diya2.png');
+            animation-delay: 0.5s;
+        }
+
+        .diya3 {
+            left: 75%;
+            background-image: url('./public/diya3.png');
+            animation-delay: 1s;
+        }
+
+        /* Keyframes for lamp flicker */
+        @keyframes flickerLamp {
+
+            0%,
+            100% {
+                opacity: 0.9;
+            }
+
+            50% {
+                opacity: 0.7;
+            }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        /* Floating Candles */
+        .candle {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-size: contain;
+            animation: float 4s ease-in-out infinite, pulse 2s infinite alternate;
+            opacity: 0.8;
+        }
+
+        .candle1 {
+            bottom: 10%;
+            left: 20%;
+            background-image: url('./public/candle1.png');
+            animation-delay: 0s;
+        }
+
+        .candle2 {
+            bottom: 10%;
+            left: 50%;
+            background-image: url('./public/candle2.png');
+            animation-delay: 0.5s;
+        }
+
+        .candle3 {
+            bottom: 10%;
+            left: 80%;
+            background-image: url('./public/candle3.png');
+            animation-delay: 1s;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Image Gallery */
+        .image-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .image-container img {
+            width: 150px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(255, 165, 0, 0.7);
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .image-container img:hover {
+            transform: scale(1.1);
+            cursor: pointer;
+        }
+
+        /* Lightbox effect */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 20;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 10px;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 640px) {
+            .diwali-glow {
+                padding: 10px;
+            }
+
+            .image-container img {
+                width: 100px;
+            }
+
+            .video-container video {
+                width: 200px;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body class="flex flex-col items-center justify-center min-h-screen text-center text-white">
+    <!-- Background Video -->
+    <div id="fireworks"></div>
+
+    <div class="diwali-glow z-10 max-w-sm mx-auto p-4 rounded-lg shadow-lg bg-black bg-opacity-30 backdrop-blur-md">
+        <h1 class="text-3xl sm:text-4xl font-extrabold glow text-white animate-pulse drop-shadow-md mb-3">
+            ✨ Happy Diwali 🎆
+        </h1>
+        <p class="text-base sm:text-lg font-semibold text-yellow-200 glow mb-2">
+            May this festival of lights fill your life with joy and happiness.
+        </p>
+        <p class="text-sm sm:text-base font-medium text-yellow-100 mb-3">
+            Wishing you and your family a prosperous Diwali! 🎇
+        </p>
+        <p class="text-sm sm:text-base font-medium text-yellow-50 mb-3">
+            Warm wishes,
+            <br />
+            <span class="block mt-1 text-xl sm:text-2xl font-extrabold text-yellow-300 glow tracking-wide">
+                🌟 Varun Sharma 🌟
+            </span>
+        </p>
+        <div class="mt-2 flex justify-center">
+            <div
+                class="w-14 h-14 sm:w-16 sm:h-16 overflow-hidden rounded-full shadow-lg border-4 border-yellow-300 transition-transform transform hover:scale-110">
+                <img src="./public/diyamain.jpg" alt="Diya" class="w-full h-full object-cover animate-bounce" />
+            </div>
+        </div>
+    </div>
+
+    <!-- Diya Lamps -->
+    <div class="diya diya1"></div>
+    <div class="diya diya2"></div>
+    <div class="diya diya3"></div>
+
+    <!-- Floating Candles -->
+    <div class="candle candle1"></div>
+    <div class="candle candle2"></div>
+    <div class="candle candle3"></div>
+
+    <!-- Image Gallery -->
+    <div class="image-container">
+        <img src="./public/diwalicelebration.png" alt="Diwali Celebration" onclick="openLightbox(this.src)" />
+        <img src="./public/light.jpg" alt="Diya" onclick="openLightbox(this.src)" />
+        <img src="./public/fireworks.png" alt="Candle" onclick="openLightbox(this.src)" />
+    </div>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <img id="lightbox-image" src="" alt="Lightbox Image" />
+    </div>
+
+    <script>
+        // Fireworks
+        const fireworks = new Fireworks.default(document.getElementById('fireworks'));
+        fireworks.start();
+
+        // Lightbox functionality
+        function openLightbox(src) {
+            document.getElementById('lightbox-image').src = src;
+            document.getElementById('lightbox').style.display = 'flex';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+        }
+    </script>
+</body>
+
+</html>
